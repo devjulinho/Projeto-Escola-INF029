@@ -10,10 +10,10 @@ typedef struct aluno{
   char sexo;
   char nascimento;
   char CPF;
-} Aluno;
+}Aluno;
 
 int main(void){
-  int listaAluno[MAX_ALUNO];
+  Aluno Aluno[MAX_ALUNO], Professor[MAX_PROFESSOR];
   int qtdAluno = 0;
   int opcao;
   int sair = 0;
@@ -67,7 +67,7 @@ int main(void){
               if (matricula < 0){
                 printf("Matrícula Inválida");}
               else{
-                listaAluno[qtdAluno] = matricula;
+                Aluno[qtdAluno].matricula = matricula;
                 qtdAluno++;
                 printf("Matrícula realizada com sucesso");
               }
@@ -80,8 +80,8 @@ int main(void){
             if (qtdAluno == 0)
               printf("Lista vazia\n");
             else{
-              for (int i; i < qtdAluno; i++){
-                printf("Matrícula: %d\n", listaAluno[i]);
+              for (int i = 0; i < qtdAluno; i++){
+                printf("Matrícula: %d\n", Aluno[i].matricula);
               }}
             break;
           }
