@@ -1,0 +1,27 @@
+gcc Julio20231160011.c corretor.c -o T1
+
+LISTA DE PRÓXIMAS ATIVIDADES
+
+% QUESTÃO 1: FEITO
+% -> Criar função para validar datas
+% -> Testar com a função
+% (Fazer isso antes da questão 2)
+
+QUESTÃO 2:
+-> Criar função para validar datas
+-> Testar com a função
+(Fazer isso antes da questão 2)
+
+% QUESTÃO 3: FEITO
+
+QUESTÃO 4:
+
+
+QUESTÃO 5:
+
+
+QUESTÃO 6:
+
+
+QUESTÃO 7/8:
+
