@@ -1,6 +1,13 @@
 gcc Julio20231160011.c corretor.c -o T1
 
 LISTA DE PRÓXIMAS ATIVIDADES
+%Q1
+Q2
+%Q3
+Q4
+%Q5
+Q6
+EXTRA
 
 % QUESTÃO 1: FEITO
 % -> Criar função para validar datas
@@ -12,16 +19,56 @@ QUESTÃO 2:
 -> Testar com a função
 (Fazer isso antes da questão 2)
 
-% QUESTÃO 3: FEITO
 
-QUESTÃO 4:
-
-
-QUESTÃO 5:
-
-
-QUESTÃO 6:
-
-
-QUESTÃO 7/8:
+% QUESTÃO 5: FEITO
+REVISAR
+  #include <stdio.h>
+  #include <stdlib.h>
+  
+  int main(){
+  
+    int num = 91023;
+    int quociente = 1;
+    int soma = 0;
+    int divisor = 1;
+    int divisor2;
+    int lista[100];
+    int cont = 0;
+    int contaux;
+    int numaux;
+  
+    //parte 1: saber a grandeza do inteiro    
+  
+    while (quociente > 0){
+      quociente = num / divisor;
+      divisor *= 10;
+      cont++;
+    }
+  
+    cont = cont - 2;
+    divisor /= 100;
+    divisor2 = divisor;
+    numaux = num;
+    
+    //parte 2: separar as casas
+  
+    for (contaux = cont; contaux >= 0; contaux--){
+      lista[contaux] = numaux / divisor;
+      numaux = numaux % divisor;
+      divisor /= 10;
+    }
+    
+    //parte 3: inverter as casas
+    contaux = 0;
+      
+    while (cont >= contaux){
+      soma = soma + (lista[contaux] * divisor2);
+      divisor2 /= 10;
+      contaux++;
+    }
+  
+    num = soma;
+  
+    printf("%d", num);
+  }
 

@@ -290,35 +290,45 @@ int q4(char *strTexto, char *strBusca, int posicoes[30]){
 
 int q5(int num){
 
-  int quociente;
+  int quociente = 1;
   int soma = 0;
   int divisor = 1;
   int divisor2;
   int lista[100];
   int cont = 0;
+  int contaux;
+  int numaux;
 
-  while (quociente >= 0){
-    quociente = num % divisor;
+  //parte 1: saber a grandeza do inteiro    
+
+  while (quociente > 0){
+    quociente = num / divisor;
     divisor *= 10;
+    cont++;
   }
 
-  divisor /= 10;
-
+  cont = cont - 2;
+  divisor /= 100;
   divisor2 = divisor;
+  numaux = num;
 
-  while (divisor != 1){
-    lista[cont] = num % divisor;
-    cont++;
+  //parte 2: separar as casas
+
+  for (contaux = cont; contaux >= 0; contaux--){
+    lista[contaux] = numaux / divisor;
+    numaux = numaux % divisor;
     divisor /= 10;
   }
 
-  cont--;
-  
-  while (cont <= 0){
-    soma = soma + (lista[cont] * divisor2);
+  //parte 3: inverter as casas
+  contaux = 0;
+
+  while (cont >= contaux){
+    soma = soma + (lista[contaux] * divisor2);
     divisor2 /= 10;
+    contaux++;
   }
-  
+
   num = soma;
 
   return num;
