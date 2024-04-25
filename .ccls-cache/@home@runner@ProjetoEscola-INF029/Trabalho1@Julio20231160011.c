@@ -194,9 +194,6 @@ DiasMesesAnos q2(char datainicial[], char datafinal[]){
   DataQuebrada qinicial = quebraData(datainicial);
   DataQuebrada qfinal = quebraData(datafinal);
 
-  printf("Data Inicial: %d/%d/%d\n", qinicial.iDia, qinicial.iMes, qinicial.iDia);
-  printf("Data Final: %d/%d/%d\n", qfinal.iDia, qfinal.iMes, qfinal.iDia);
-
   if (q1(datainicial) == 0){
     dma.retorno = 2;
     return dma;
@@ -211,11 +208,11 @@ DiasMesesAnos q2(char datainicial[], char datafinal[]){
       dma.retorno = 4;
       return dma;
     }
-    else if((qinicial.iAno = qfinal.iAno) && (qinicial.iMes > qfinal.iMes)){
+    else if((qinicial.iAno == qfinal.iAno) && (qinicial.iMes > qfinal.iMes)){
       dma.retorno = 4;
       return dma;
     }
-    else if((qinicial.iAno = qfinal.iAno) && (qinicial.iMes = qfinal.iMes) && (qinicial.iDia > qfinal.iDia)){
+    else if((qinicial.iAno == qfinal.iAno) && (qinicial.iMes == qfinal.iMes) && (qinicial.iDia > qfinal.iDia)){
       dma.retorno = 4;
       return dma;
     }
@@ -224,7 +221,7 @@ DiasMesesAnos q2(char datainicial[], char datafinal[]){
       //dias
       if(qinicial.iDia < qfinal.iDia)
         dma.qtdDias = qfinal.iDia - qinicial.iDia;
-      if(qinicial.iDia = qfinal.iDia)
+      if(qinicial.iDia == qfinal.iDia)
         dma.qtdDias = 0;
       if(qinicial.iDia > qfinal.iDia){
         if (qinicial.iMes == 1 || qinicial.iMes == 3 || qinicial.iMes == 5 || qinicial.iMes == 7 || qinicial.iMes == 8 || qinicial.iMes == 10 || qinicial.iMes == 12){
@@ -249,11 +246,36 @@ DiasMesesAnos q2(char datainicial[], char datafinal[]){
         
       }
 
-      
       //meses
-      
-      
 
+      if (qinicial.iMes < qfinal.iMes)
+        dma.qtdMeses = qfinal.iMes - qinicial.iMes;
+      else if (qinicial.iMes > qfinal.iMes)
+        dma.qtdMeses = 12 - qinicial.iMes + qfinal.iMes;
+      else if (qinicial.iMes == qfinal.iMes)
+        dma.qtdMeses = 1;
+
+      if (qfinal.iDia < qinicial.iDia)
+        dma.qtdMeses--;
+
+      if ((qfinal.iDia == qinicial.iDia) && (qfinal.iMes == qinicial.iMes))
+        dma.qtdMeses--;
+
+      //ano
+      if (qinicial.iAno < qfinal.iAno)
+        dma.qtdAnos = qfinal.iAno - qinicial.iAno;
+
+      if (qfinal.iMes < qinicial.iMes)
+        dma.qtdAnos--;
+
+      if ((qfinal.iMes == qinicial.iMes) && (qfinal.iDia < qinicial.iDia))
+        dma.qtdAnos--;
+
+      if((qfinal.iDia == 28 && qinicial.iDia == 29) && (qinicial.iMes == 2) && (qfinal.iMes == 2)){
+        dma.qtdDias = 0;
+        dma.qtdAnos++;
+      }
+        
 
       //se tudo der certo
       dma.retorno = 1;
