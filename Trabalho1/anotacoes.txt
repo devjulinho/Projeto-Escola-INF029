@@ -4,9 +4,9 @@ LISTA DE PRÓXIMAS ATIVIDADES
 %Q1
 Q2
 %Q3
-Q4
+%Q4
 %Q5
-Q6
+%Q6
 EXTRA
 
 % QUESTÃO 1: FEITO
@@ -72,3 +72,85 @@ REVISAR
     printf("%d", num);
   }
 
+% QUESTÃO 6:
+
+#include <stdio.h>
+
+int main(){
+  int numerobase = 34567368;
+  int numerobusca = 3;
+  int qtdOcorrencias = 0;
+
+  int quociente = 1;
+  int divisor = 1;
+  int listabase[100];
+  int cont = 0;
+  int contaux;
+  int numaux;
+
+  //parte 1: separar as casas do numerobase   
+
+  while (quociente > 0){
+    quociente = numerobase / divisor;
+    divisor *= 10;
+    cont++;
+  }
+
+  cont = cont - 2;
+  divisor /= 100;
+  numaux = numerobase;
+
+  listabase[cont+1] = -1;
+
+  for (contaux = 0; contaux <= cont; contaux++){
+    listabase[contaux] = numaux / divisor;
+    numaux = numaux % divisor;
+    divisor /= 10;
+  }
+
+  //parte 2: separar as casas do numerobusca
+
+  quociente = 1;
+  divisor = 1;
+  int listabusca[100];
+  cont = 0;
+
+  while (quociente > 0){
+    quociente = numerobusca / divisor;
+    divisor *= 10;
+    cont++;
+  }
+
+  cont = cont - 2;
+  divisor /= 100;
+  numaux = numerobusca;
+
+  listabusca[cont+1] = -1;
+
+  for (contaux = 0; contaux <= cont; contaux++){
+    listabusca[contaux] = numaux / divisor;
+    numaux = numaux % divisor;
+    divisor /= 10;
+  }
+
+  //Parte 3: Contar as ocorrências
+
+  int ibase = 0;
+  int ibusca = 0;
+  int incremento = 0;
+
+  while(listabase[ibase] != -1){
+
+    if(listabase[ibase] == listabusca[ibusca]){
+      while(listabase[ibase + incremento] == listabusca[ibusca + incremento]){
+        incremento++;
+      }
+      if (listabusca[ibusca + incremento] == -1)
+        qtdOcorrencias++;
+      incremento = 0;
+    }
+    ibase++;
+  }
+
+    printf("%d", qtdOcorrencias);
+}

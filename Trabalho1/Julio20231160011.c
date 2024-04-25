@@ -187,29 +187,79 @@ int q1(char data[]){
     4 -> datainicial > datafinal
     Caso o cálculo esteja correto, os atributos qtdDias, qtdMeses e qtdAnos devem ser preenchidos com os valores correspondentes.
  */
-DiasMesesAnos q2(char datainicial[], char datafinal[])
-{
+DiasMesesAnos q2(char datainicial[], char datafinal[]){
 
-    //calcule os dados e armazene nas três variáveis a seguir
-    DiasMesesAnos dma;
+  //calcule os dados e armazene nas três variáveis a seguir
+  DiasMesesAnos dma;
+  DataQuebrada qinicial = quebraData(datainicial);
+  DataQuebrada qfinal = quebraData(datafinal);
 
-    if (q1(datainicial) == 0){
-      dma.retorno = 2;
+  printf("Data Inicial: %d/%d/%d\n", qinicial.iDia, qinicial.iMes, qinicial.iDia);
+  printf("Data Final: %d/%d/%d\n", qfinal.iDia, qfinal.iMes, qfinal.iDia);
+
+  if (q1(datainicial) == 0){
+    dma.retorno = 2;
+    return dma;
+  }else if (q1(datafinal) == 0){
+    dma.retorno = 3;
+    return dma;
+  }
+  
+  else{
+    //verifique se a data final não é menor que a data inicial
+    if (qinicial.iAno > qfinal.iAno){
+      dma.retorno = 4;
       return dma;
-    }else if (q1(datafinal) == 0){
-      dma.retorno = 3;
+    }
+    else if((qinicial.iAno = qfinal.iAno) && (qinicial.iMes > qfinal.iMes)){
+      dma.retorno = 4;
       return dma;
-    }else{
-      //verifique se a data final não é menor que a data inicial
-
+    }
+    else if((qinicial.iAno = qfinal.iAno) && (qinicial.iMes = qfinal.iMes) && (qinicial.iDia > qfinal.iDia)){
+      dma.retorno = 4;
+      return dma;
+    }
+    else{
       //calcule a distancia entre as datas
+      //dias
+      if(qinicial.iDia < qfinal.iDia)
+        dma.qtdDias = qfinal.iDia - qinicial.iDia;
+      if(qinicial.iDia = qfinal.iDia)
+        dma.qtdDias = 0;
+      if(qinicial.iDia > qfinal.iDia){
+        if (qinicial.iMes == 1 || qinicial.iMes == 3 || qinicial.iMes == 5 || qinicial.iMes == 7 || qinicial.iMes == 8 || qinicial.iMes == 10 || qinicial.iMes == 12){
+          //mes 31
+          dma.qtdDias = 31 - qinicial.iDia + qfinal.iDia;
+        }
+
+        if (qinicial.iMes == 4 || qinicial.iMes == 6 || qinicial.iMes == 9|| qinicial.iMes == 11){
+          //mes 30
+          dma.qtdDias = 30 - qinicial.iDia + qfinal.iDia;
+        }
+
+        if ((qinicial.iMes == 2) && (anobissexto(qinicial.iAno == 1))){
+          //mes 29
+          dma.qtdDias = 29 - qinicial.iDia + qfinal.iDia;
+        }
+
+        if ((qinicial.iMes == 2) && (anobissexto(qinicial.iAno == 0))){
+          //mes 28
+          dma.qtdDias = 28 - qinicial.iDia + qfinal.iDia;
+        }
+        
+      }
+
+      
+      //meses
+      
+      
 
 
       //se tudo der certo
       dma.retorno = 1;
       return dma;
-
     }
+  }
 
 }
 
@@ -271,11 +321,36 @@ int q3(char *texto, char c, int isCaseSensitive){
 int q4(char *strTexto, char *strBusca, int posicoes[30]){
   
   int qtdOcorrencias = 0;
-  
 
+  int ibase = 0;
+  int ibusca = 0;
+  int incremento = 0;
+  int iposicoes = 0;
+  int desincremento = 0;
   
+  while(strTexto[ibase] != '\0'){
 
-    return qtdOcorrencias;
+    if(strTexto[ibase] < 0)
+      desincremento++;
+    
+    if(strTexto[ibase] == strBusca[ibusca]){
+      while(strTexto[ibase + incremento] == strBusca[ibusca + incremento]){
+        incremento++;
+      }
+    if (strBusca[ibusca + incremento] == '\0'){
+      qtdOcorrencias++;
+      posicoes[iposicoes] = ibase + 1 - (desincremento / 2);
+      iposicoes++;
+      posicoes[iposicoes] = ibase + incremento - (desincremento / 2);
+      iposicoes++;
+    }
+      
+    incremento = 0;
+    }
+    ibase++;
+  }
+
+  return qtdOcorrencias;
 }
 
 /*
@@ -344,8 +419,79 @@ int q5(int num){
     Quantidade de vezes que número de busca ocorre em número base
  */
 
-int q6(int numerobase, int numerobusca)
-{
-    int qtdOcorrencias;
+int q6(int numerobase, int numerobusca){
+  int qtdOcorrencias = 0;
+  
+  int quociente = 1;
+  int divisor = 1;
+  int listabase[100];
+  int cont = 0;
+  int contaux;
+  int numaux;
+
+  //parte 1: separar as casas do numerobase   
+
+  while (quociente > 0){
+    quociente = numerobase / divisor;
+    divisor *= 10;
+    cont++;
+  }
+
+  cont = cont - 2;
+  divisor /= 100;
+  numaux = numerobase;
+
+  listabase[cont+1] = -1;
+
+  for (contaux = 0; contaux <= cont; contaux++){
+    listabase[contaux] = numaux / divisor;
+    numaux = numaux % divisor;
+    divisor /= 10;
+  }
+
+  //parte 2: separar as casas do numerobusca
+
+  quociente = 1;
+  divisor = 1;
+  int listabusca[100];
+  cont = 0;
+  
+  while (quociente > 0){
+    quociente = numerobusca / divisor;
+    divisor *= 10;
+    cont++;
+  }
+
+  cont = cont - 2;
+  divisor /= 100;
+  numaux = numerobusca;
+
+  listabusca[cont+1] = -2;
+  
+  for (contaux = 0; contaux <= cont; contaux++){
+    listabusca[contaux] = numaux / divisor;
+    numaux = numaux % divisor;
+    divisor /= 10;
+  }
+
+  //Parte 3: Contar as ocorrências
+
+  int ibase = 0;
+  int ibusca = 0;
+  int incremento = 0;
+
+  while(listabase[ibase] != -1){
+
+    if(listabase[ibase] == listabusca[ibusca]){
+      while(listabase[ibase + incremento] == listabusca[ibusca + incremento]){
+        incremento++;
+      }
+      if (listabusca[ibusca + incremento] == -2)
+        qtdOcorrencias++;
+      incremento = 0;
+    }
+    ibase++;
+  }
+  
     return qtdOcorrencias;
 }
