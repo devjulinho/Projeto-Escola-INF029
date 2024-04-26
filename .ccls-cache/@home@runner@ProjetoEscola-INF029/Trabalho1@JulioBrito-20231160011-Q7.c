@@ -1,3 +1,9 @@
+//  ----- Dados do Aluno -----
+//  Nome: Júlio Santos de Brito
+//  email: julio01.brito@gmail.com
+//  Matrícula: 20231160011
+//  Semestre: 2024.1
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -58,6 +64,21 @@ int fimJogo(char casas[]){
     return 1;
   }
 
+  if (
+    ((casas[0] == 'X') || (casas[0] == 'O')) &&
+    ((casas[1] == 'X') || (casas[1] == 'O')) &&
+    ((casas[2] == 'X') || (casas[2] == 'O')) && 
+    ((casas[3] == 'X') || (casas[3] == 'O')) && 
+    ((casas[4] == 'X') || (casas[4] == 'O')) && 
+    ((casas[5] == 'X') || (casas[5] == 'O')) && 
+    ((casas[6] == 'X') || (casas[6] == 'O')) && 
+    ((casas[7] == 'X') || (casas[7] == 'O')) && 
+    ((casas[8] == 'X') || (casas[8] == 'O'))){
+    printf("------> EMPATE <------\n");
+    printf("Vocês podem jogar novamente!!!\n");
+    return 1;
+  }
+
   return 0;
   
 }
@@ -85,7 +106,7 @@ int main(){
   }
   jogadores[2] = '\0';
   
-  printf("----> INF029: JOGO DA VELHA - v0.1 <----\n");
+  printf("----> INF029: JOGO DA VELHA - v0.2 <----\n");
   printf("--------> Júlio Brito <--------\n \n");
   
   while(iniciar == 1){
