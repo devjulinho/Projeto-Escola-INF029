@@ -83,51 +83,50 @@ int fimJogo(char casas[]){
   
 }
 
-//IMPLEMENTANDO AQUI!!!
 int verificarJogada(char casas[], char escolha[]){
 
-  if ((escolha[0] < 'A' || escolha[0] > 'I') && (escolha[0] < 'a' || escolha[0] > 'i'))
+  if ((escolha[0] < '1' || escolha[0] > '9'))
     return 0;
-  else if((escolha[0] == 'a' || escolha[0] == 'A') && (casas[0] == 'X' || casas[0] == 'O'))
+  else if((escolha[0] == '1') && (casas[0] == 'X' || casas[0] == 'O'))
     return 0;
-  else if((escolha[0] == 'b' || escolha[0] == 'B') && (casas[1] == 'X' || casas[1] == 'O'))
+  else if((escolha[0] == '2') && (casas[1] == 'X' || casas[1] == 'O'))
     return 0;
-  else if((escolha[0] == 'c' || escolha[0] == 'C') && (casas[2] == 'X' || casas[2] == 'O'))
+  else if((escolha[0] == '3') && (casas[2] == 'X' || casas[2] == 'O'))
     return 0;
-  else if((escolha[0] == 'd' || escolha[0] == 'D') && (casas[3] == 'X' || casas[3] == 'O'))
+  else if((escolha[0] == '4') && (casas[3] == 'X' || casas[3] == 'O'))
     return 0;
-  else if((escolha[0] == 'e' || escolha[0] == 'E') && (casas[4] == 'X' || casas[4] == 'O'))
+  else if((escolha[0] == '5') && (casas[4] == 'X' || casas[4] == 'O'))
     return 0;
-  else if((escolha[0] == 'f' || escolha[0] == 'F') && (casas[5] == 'X' || casas[5] == 'O'))
+  else if((escolha[0] == '6') && (casas[5] == 'X' || casas[5] == 'O'))
     return 0;
-  else if((escolha[0] == 'g' || escolha[0] == 'G') && (casas[6] == 'X' || casas[6] == 'O'))
+  else if((escolha[0] == '7') && (casas[6] == 'X' || casas[6] == 'O'))
     return 0;
-  else if((escolha[0] == 'h' || escolha[0] == 'H') && (casas[7] == 'X' || casas[7] == 'O')) 
+  else if((escolha[0] == '8') && (casas[7] == 'X' || casas[7] == 'O')) 
     return 0;
-  else if((escolha[0] == 'i' || escolha[0] == 'I') && (casas[8] == 'X' || casas[8] == 'O'))
+  else if((escolha[0] == '9') && (casas[8] == 'X' || casas[8] == 'O'))
     return 0;
   else
     return 1;
 }
 
 void jogar(char casas[], char escolha[], char jogadores){
-  if(escolha[0] == 'a' || escolha[0] == 'A')
+  if(escolha[0] == '1')
     casas[0] = jogadores;
-  if(escolha[0] == 'b' || escolha[0] == 'B')
+  if(escolha[0] == '2')
     casas[1] = jogadores;
-  if(escolha[0] == 'c' || escolha[0] == 'C')
+  if(escolha[0] == '3')
     casas[2] = jogadores;
-  if(escolha[0] == 'd' || escolha[0] == 'D')
+  if(escolha[0] == '4')
     casas[3] = jogadores;
-  if(escolha[0] == 'e' || escolha[0] == 'E')
+  if(escolha[0] == '5')
     casas[4] = jogadores;
-  if(escolha[0] == 'f' || escolha[0] == 'F')
+  if(escolha[0] == '6')
     casas[5] = jogadores;
-  if(escolha[0] == 'g' || escolha[0] == 'G')
+  if(escolha[0] == '7')
     casas[6] = jogadores;
-  if(escolha[0] == 'h' || escolha[0] == 'H')
+  if(escolha[0] == '8')
     casas[7] = jogadores;
-  if(escolha[0] == 'i' || escolha[0] == 'I')
+  if(escolha[0] == '9')
     casas[8] = jogadores;
 } 
 
@@ -140,9 +139,11 @@ int main(){
   char escolha[2];
   int podeJogar = 0;
 
+  system("clear");
+
   // iniciando casas
   while(i < 9){
-    casas[i] = 'a' + i;
+    casas[i] = '1' + i;
     i++;
   }
   casas[9] = '\0';
@@ -155,7 +156,7 @@ int main(){
   }
   jogadores[2] = '\0';
   
-  printf("----> INF029: JOGO DA VELHA - v0.2 <----\n");
+  printf("----> INF029: JOGO DA VELHA - v0.3 <----\n");
   printf("--------> Júlio Brito <--------\n \n");
   
   while(iniciar == 1){
@@ -172,7 +173,7 @@ int main(){
     getchar();
     while (jogadores[0] != 'X' && jogadores[0] != 'x' && jogadores[0] != 'O' && jogadores[0] != 'o'){
       printf("Opa, essa opção não está dentro das alternativas. Você escolhe X ou O?\n");
-      scanf("%c", &jogadores[1]);
+      scanf("%c", &jogadores[0]);
       getchar();
     }
     
@@ -193,7 +194,7 @@ int main(){
     i = 0;
     
     while(i < 9){
-      casas[i] = 'a' + i;
+      casas[i] = '1' + i;
       i++;
     }
     casas[9] = '\0';

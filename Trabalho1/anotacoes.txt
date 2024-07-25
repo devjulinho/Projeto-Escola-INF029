@@ -1,5 +1,6 @@
 gcc Julio20231160011.c corretor.c -o T1
 gcc JulioBrito-20231160011-Q7.c -o Jogo
+gcc mainTeste.c EstruturaVetores.c -o teste
 
 LISTA DE PRÓXIMAS ATIVIDADES
 %Q1
