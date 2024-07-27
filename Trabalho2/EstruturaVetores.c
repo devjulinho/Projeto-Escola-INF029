@@ -12,6 +12,18 @@ typedef struct estrutura{
 
 struct estrutura vetor;
 
+int ehPosicaoValida(int posicao)
+{
+    int retorno = 0;
+    if (posicao < 1 || posicao > 10)
+    {
+        retorno = POSICAO_INVALIDA;
+    }
+    else
+        retorno = SUCESSO;
+
+    return retorno;
+}
 
 /*
 Objetivo: inicializa o programa. deve ser chamado ao inicio do programa 
@@ -358,8 +370,35 @@ Rertono (int)
 */
 int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[])
 {
-
     int retorno = 0;
+
+    int contador = 0;
+
+    for (int i = 0; i < TAM; i++){
+        for(int j = 0; j < vetor.cont[i]; j++){
+            vetorAux[contador] = vetor.ptr_vetor[i][j];
+            contador++;
+        }
+    }
+
+    if (contador == 0)
+        retorno = TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;
+    else
+        retorno = SUCESSO;
+
+    if (retorno == SUCESSO){
+        int auxiliar;
+        for (int k = 0; k < contador; k++){
+            for(int j = k; j < contador; j++){
+                if(vetorAux[k] > vetorAux[j]){
+                    auxiliar = vetorAux[k];
+                    vetorAux[k] = vetorAux[j];
+                    vetorAux[j] = auxiliar;
+                }
+            }
+        }
+    }
+    
     return retorno;
 }
 
@@ -369,15 +408,43 @@ Suponha o tamanho inicial = x, e novo tamanho = n. O tamanho resultante deve ser
 
 Rertono (int)
     SUCESSO - foi modificado corretamente o tamanho da estrutura auxiliar
-    SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
-    POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
-    NOVO_TAMANHO_INVALIDO - novo tamanho não pode ser negativo
+    xSEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
+    xPOSICAO_INVALIDA - Posição inválida para estrutura auxiliar
+    xNOVO_TAMANHO_INVALIDO - novo tamanho não pode ser negativo
     SEM_ESPACO_DE_MEMORIA - erro na alocação do novo valor
 */
 int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho)
 {
 
     int retorno = 0;
+    
+    if (posicao < 1 || posicao > 10){
+        retorno = POSICAO_INVALIDA;
+    }
+
+    else if((vetor.totalCasas[posicao - 1] + novoTamanho) < 1){
+        retorno = NOVO_TAMANHO_INVALIDO;
+    }
+
+    else if(vetor.totalCasas[posicao-1] == -1){
+        retorno = SEM_ESTRUTURA_AUXILIAR;
+    }
+
+    else{
+
+        vetor.ptr_vetor[posicao - 1] = realloc(vetor.ptr_vetor[posicao - 1], (vetor.totalCasas[posicao - 1] + novoTamanho) * sizeof(int));
+
+        if (vetor.ptr_vetor[posicao - 1] == NULL)
+            retorno = SEM_ESPACO_DE_MEMORIA;
+        else{
+            vetor.totalCasas[posicao - 1] += novoTamanho;
+
+            if (vetor.totalCasas[posicao - 1] < vetor.cont[posicao - 1])
+                vetor.cont[posicao - 1] = vetor.totalCasas[posicao - 1];
+            
+            retorno = SUCESSO;
+        }    
+    }
     return retorno;
 }
 
@@ -392,8 +459,20 @@ Retorno (int)
 */
 int getQuantidadeElementosEstruturaAuxiliar(int posicao)
 {
-
+    
     int retorno = 0;
+
+    if(posicao < 1 || posicao > 10)
+        retorno = POSICAO_INVALIDA;
+
+    else if (vetor.totalCasas[posicao - 1] == -1)
+        retorno = SEM_ESTRUTURA_AUXILIAR;
+
+    else if (vetor.cont[posicao - 1] == 0)
+        retorno = ESTRUTURA_AUXILIAR_VAZIA;
+
+    else
+        retorno = vetor.cont[posicao - 1];
 
     return retorno;
 }
