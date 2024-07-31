@@ -477,6 +477,20 @@ int getQuantidadeElementosEstruturaAuxiliar(int posicao)
     return retorno;
 }
 
+void inserirElementoNaEstrutura(No * inicio, int valor){
+    No * novo = (No *) malloc(sizeof(No));
+    novo -> conteudo = valor;
+    novo -> prox = NULL;
+
+    No * atual = inicio;
+    
+    while(atual -> prox != NULL){
+        atual = atual -> prox;
+    }
+
+    atual -> prox = novo;
+}
+
 /*
 Objetivo: montar a lista encadeada com cabeçote com todos os números presentes em todas as estruturas.
 
@@ -486,8 +500,19 @@ Retorno (No*)
 */
 No *montarListaEncadeadaComCabecote()
 {
+    No *inicio = (No*) malloc(sizeof(No));
+    inicio->prox = NULL;
 
-    return NULL;
+    for (int i = 0; i < TAM; i++){
+        for(int j = 0; j < vetor.cont[i]; j++){
+            inserirElementoNaEstrutura(inicio, vetor.ptr_vetor[i][j]);
+        }
+    }
+
+    if (inicio->prox == NULL)
+        return NULL;
+    else
+        return inicio;
 }
 
 /*
@@ -496,6 +521,17 @@ Retorno void
 */
 void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[])
 {
+    No *atual = inicio->prox;
+    int i = 0;
+    
+    while(atual != NULL){
+        vetorAux[i] = atual -> conteudo;
+        i++;
+        atual = atual -> prox;
+    }
+
+    free(atual);
+    
 }
 
 /*
@@ -507,4 +543,17 @@ Retorno
 */
 void destruirListaEncadeadaComCabecote(No **inicio)
 {
+    No * atual;
+    No * proximo;
+
+    atual = *inicio;
+    
+    while(atual != NULL){
+        proximo = atual -> prox;
+        free(atual);
+        atual = proximo;
+    }
+
+    *inicio = NULL;
+    
 }
